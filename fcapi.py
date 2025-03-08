@@ -8,14 +8,18 @@ from database import (
     DatabaseError,
     get_user_role,
 )
-from fcmanager import create_crawl_task, get_crawl_status
+from fcmanager import create_crawl_task, get_crawl_status, cancel_crawl_task
 
 # 创建蓝图实例
 fc_bp = Blueprint("fctask", __name__, url_prefix="/fctask")
 
+# 为整个蓝图添加JWT认证
+@fc_bp.before_request
+@jwt_required()
+def before_request():
+    pass
 
 @fc_bp.route("/create", methods=["POST"])
-@jwt_required()
 def create_fctask():
     try:
         # 获取当前用户ID
@@ -30,7 +34,7 @@ def create_fctask():
         schedule = form.get("schedule")
 
         # 验证必要参数
-        if not all([name, description, category, site_url]):
+        if not all([name, category, site_url]):
             return jsonify({"success": False, "message": "缺少必要参数"}), 400
 
         # 获取用户角色
@@ -78,14 +82,20 @@ def create_fctask():
 
 
 @fc_bp.route("/audit", methods=["POST"])
-@jwt_required()
 def audit_fctask():
     try:
+        # 获取当前用户ID和角色
+        admin_id = int(get_jwt_identity())
+        user_role = get_user_role(admin_id)
+        
+        # 检查是否为管理员
+        if user_role != "admin":
+            return jsonify({"success": False, "message": ""}), 403
+
         # 获取请求参数
         form = request.form
         task_id = form.get("task_id")
         is_approved = form.get("is_approved")
-        admin_id = int(get_jwt_identity())
 
         if not task_id or is_approved is None:
             return jsonify(
@@ -106,7 +116,6 @@ def audit_fctask():
 
 
 @fc_bp.route("/get", methods=["GET"])
-@jwt_required()
 def get_fctask():
     try:
         # 获取查询参数
@@ -140,7 +149,6 @@ def get_fctask():
 
 
 @fc_bp.route("/modify", methods=["POST"])
-@jwt_required()
 def modify_fctask():
     try:
         # 获取请求参数
@@ -191,7 +199,6 @@ def modify_fctask():
 
 
 @fc_bp.route("/info", methods=["GET"])
-@jwt_required()
 def get_task_status():
     """获取爬虫任务状态
 
@@ -211,3 +218,15 @@ def get_task_status():
 
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
+
+
+@fc_bp.route("/delete", methods=["POST"])
+def delete_fctask():
+    try:
+        fc_task_id = request.form.get("fc_task_id")
+        cancel_crawl_task(fc_task_id)
+        return jsonify({"success": True, "message": "爬虫任务已取消"}), 200
+
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+

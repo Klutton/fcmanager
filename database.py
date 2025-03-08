@@ -883,6 +883,43 @@ def get_tasks(
         raise DatabaseError(f"获取任务列表时发生错误: {str(error)}")
 
 
+def delete_task(task_id: int) -> str:
+    """
+    根据任务ID删除任务记录
+
+    Args:
+        task_id: 要删除的任务ID
+
+    Returns:
+        str: 成功消息
+
+    Raises:
+        DatabaseError: 数据库操作失败时抛出
+        ValueError: 任务不存在时抛出
+    """
+    try:
+        with get_database_connection() as connection:
+            with connection.cursor() as cursor:
+                # 检查任务是否存在
+                cursor.execute(
+                    "SELECT id FROM task WHERE id = %s",
+                    (task_id,)
+                )
+                if not cursor.fetchone():
+                    raise ValueError("任务不存在")
+
+                # 删除任务
+                cursor.execute(
+                    "DELETE FROM task WHERE id = %s",
+                    (task_id,)
+                )
+                connection.commit()
+                return "任务删除成功"
+
+    except Exception as error:
+        raise DatabaseError(f"删除任务时发生错误: {str(error)}")
+
+
 # endregion
 
 if __name__ == "__main__":

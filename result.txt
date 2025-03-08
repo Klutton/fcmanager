@@ -1,0 +1,24 @@
+bkpg.xidian.edu.cn:443 open
+bkpg.xidian.edu.cn:80 open
+[*] WebTitle http://bkpg.xidian.edu.cn code:302 len:0      title:None 跳转url: https://bkpg.xidian.edu.cn/
+[*] WebTitle https://bkpg.xidian.edu.cn code:200 len:28823  title:西安电子科技大学本科教学审核评估网
+[*] WebTitle https://bkpg.xidian.edu.cn/ code:200 len:28823  title:西安电子科技大学本科教学审核评估网
+bwc.xidian.edu.cn:80 open
+bwc.xidian.edu.cn:443 open
+[*] WebTitle http://bwc.xidian.edu.cn  code:302 len:0      title:None 跳转url: https://bwc.xidian.edu.cn/
+[*] WebTitle https://bwc.xidian.edu.cn code:200 len:35349  title:西安电子科技大学党委安全保卫部/保卫处
+[*] WebTitle https://bwc.xidian.edu.cn/ code:200 len:35349  title:西安电子科技大学党委安全保卫部/保卫处
+class.xidian.edu.cn:80 open
+class.xidian.edu.cn:443 open
+[*] WebTitle http://class.xidian.edu.cn code:404 len:315    title:Not Found
+[*] WebTitle https://class.xidian.edu.cn code:200 len:2299   title:微信课堂
+clouddisk.learning.xidian.edu.cn:443 open
+clouddisk.learning.xidian.edu.cn:80 open
+[*] WebTitle http://clouddisk.learning.xidian.edu.cn code:302 len:0      title:None 跳转url: http://i.learning.xidian.edu.cn/login?refer=http%3A%2F%2Fclouddisk.learning.xidian.edu.cn
+[*] WebTitle https://clouddisk.learning.xidian.edu.cn code:302 len:0      title:None 跳转url: http://i.learning.xidian.edu.cn/login?refer=http%3A%2F%2Fclouddisk.learning.xidian.edu.cn
+[*] WebTitle http://ids.xidian.edu.cn/authserver/login?service=http://learning.xidian.edu.cn/sso/xidian/&refer=http://i.learning.xidian.edu.cn code:404 len:0      title:None
+coreserver2.xidian.edu.cn:80 open
+coreserver2.xidian.edu.cn:443 open
+[*] WebTitle http://coreserver2.xidian.edu.cn code:302 len:0      title:None 跳转url: https://coreserver2.xidian.edu.cn/
+[*] WebTitle https://coreserver2.xidian.edu.cn code:200 len:789    title:校园卡认证
+[*] WebTitle https://coreserver2.xidian.edu.cn/ code:200 len:789    title:校园卡认证

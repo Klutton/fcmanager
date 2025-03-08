@@ -60,3 +60,18 @@ def get_crawl_status(task_id: str) -> dict:
 
     except Exception as e:
         raise Exception(f"查询爬虫任务状态失败: {str(e)}")
+
+
+def cancel_crawl_task(task_id: str) -> dict:
+    """
+    取消爬虫任务
+    
+    Args:
+        task_id: 爬虫任务ID
+    
+    Returns:
+        dict: 包含任务状态信息的字典
+    """
+    return get_firecrawl_app().cancel_crawl(task_id)
+
+
